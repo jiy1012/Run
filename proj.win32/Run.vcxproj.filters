@@ -4,11 +4,26 @@
     <Filter Include="win32">
       <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Classes">
-      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
-    </Filter>
     <Filter Include="resource">
       <UniqueIdentifier>{715254bc-d70b-4ec5-bf29-467dd3ace079}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\image">
+      <UniqueIdentifier>{669d8963-8d7c-45df-b105-10a44d9d349b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\image\hero">
+      <UniqueIdentifier>{f166558d-b022-413c-a426-700bd9e832e1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource\image\scene">
+      <UniqueIdentifier>{e65671e5-97f3-4471-9ba6-dbc74cddf0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{7d568903-a88b-4e08-83f1-53a60a348b16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\View">
+      <UniqueIdentifier>{73f34dc2-9dea-4bc1-be11-5cfb90e87a70}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Config">
+      <UniqueIdentifier>{e5525e5d-7891-419c-ba03-68d399f79aeb}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -18,8 +33,14 @@
     <ClCompile Include="..\Classes\AppDelegate.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
-    <ClCompile Include="..\Classes\HelloWorldScene.cpp">
-      <Filter>Classes</Filter>
+    <ClCompile Include="..\Classes\View\GameScene.cpp">
+      <Filter>Classes\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\View\HeroSprite.cpp">
+      <Filter>Classes\View</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\View\MenuScene.cpp">
+      <Filter>Classes\View</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,13 +50,45 @@
     <ClInclude Include="..\Classes\AppDelegate.h">
       <Filter>Classes</Filter>
     </ClInclude>
-    <ClInclude Include="..\Classes\HelloWorldScene.h">
-      <Filter>Classes</Filter>
+    <ClInclude Include="..\Classes\View\GameScene.h">
+      <Filter>Classes\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\View\HeroSprite.h">
+      <Filter>Classes\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\View\MenuScene.h">
+      <Filter>Classes\View</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Config\FFConfig.h">
+      <Filter>Classes\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Config\FFDefineBase.h">
+      <Filter>Classes\Config</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Config\FFResourcesBase.h">
+      <Filter>Classes\Config</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="game.rc">
       <Filter>resource</Filter>
     </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Resources\image\scene\GameScene.png">
+      <Filter>resource\image\scene</Filter>
+    </Image>
+    <Image Include="..\Resources\image\scene\MenuScene.png">
+      <Filter>resource\image\scene</Filter>
+    </Image>
+    <Image Include="..\Resources\image\hero\HeroSprite.png">
+      <Filter>resource\image\hero</Filter>
+    </Image>
+    <Image Include="..\Resources\image\hero\left.png">
+      <Filter>resource\image\hero</Filter>
+    </Image>
+    <Image Include="..\Resources\image\hero\right.png">
+      <Filter>resource\image\hero</Filter>
+    </Image>
   </ItemGroup>
 </Project>
