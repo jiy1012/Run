@@ -19,10 +19,12 @@ bool HeroSprite::init(){
 }
 
 void HeroSprite::createHero(){
+    this->removeAllChildren();
     auto hero = Sprite::create("image/hero/right.png");
     hero->setAnchorPoint(Vec2(0.5,0));
     float init = HERO_SPRITE_INIT_DIRECTION;
     hero->setScaleX(init);
+    heroSprite = hero;
     this->addChild(hero);
 }
 
@@ -32,7 +34,7 @@ void HeroSprite::heroMove(float dt){
 //    float positionX = MAX(MIN(getPositionX()+distance, GET_WIN_WIDTH),0);
     float positionX = getPositionX()+distance;
     setPositionX(positionX);
-    CCLOG("HERO SPRITE POSITION X:%f",positionX);
+//    CCLOG("HERO SPRITE POSITION X:%f",positionX);
 }
 
 void HeroSprite::update(float dt){
@@ -60,12 +62,10 @@ void HeroSprite::keyboardPressed(EventKeyboard::KeyCode kCode , Event* evt)
         case cocos2d::EventKeyboard::KeyCode::KEY_LEFT_ARROW:
             moveLeft = true;
             changeDirection();
-//            direction = -1;
             break;
         case cocos2d::EventKeyboard::KeyCode::KEY_RIGHT_ARROW:
             moveRight = true;
             changeDirection();
-//            direction = 1;
             break;
         case cocos2d::EventKeyboard::KeyCode::KEY_UP_ARROW:
             break;
@@ -98,20 +98,40 @@ void HeroSprite::keyboardReleased(EventKeyboard::KeyCode kCode , Event* evt)
         default:
             break;
     }
+
 }
 
 void HeroSprite::changeDirection()
 {
     if (moveLeft && moveRight) {
         moveDirection = 0;
+        heroSprite->stopAction(heroAction);
+        createHero();
     }else if (moveLeft){
         moveDirection = -1;
+        runningAnimation();
     }else if (moveRight){
         moveDirection = 1;
+        runningAnimation();
     }else{
         moveDirection = 0;
+        heroSprite->stopAction(heroAction);
+        createHero();
     }
 
+}
+
+void HeroSprite::runningAnimation()
+{
+    Vector<SpriteFrame*> allFrames;
+    char name[100] = {};
+    for (int i = 0; i<3; i++) {
+        sprintf(name, "image/hero/right0%d.png",i);
+        SpriteFrame* sf = SpriteFrame::create(name, Rect(0,0,60,100));
+        allFrames.pushBack(sf);
+    }
+    Animation* ani = Animation::createWithSpriteFrames(allFrames,0.1);
+    heroAction = heroSprite->runAction(RepeatForever::create(Animate::create(ani)));
 }
 
 void HeroSprite::exitGame()

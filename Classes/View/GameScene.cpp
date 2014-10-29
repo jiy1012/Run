@@ -78,7 +78,7 @@ void GameScene::update(float dt)
     float distance = dt * GAME_SPRITE_SPEED;
     float positionX = getPositionX() - distance;
     
-    if (positionX >= -getContentSize().width) {
+    if (positionX >= -getContentSize().width && positionX > getPositionX()) {
         setPositionX(positionX);
         CCLOG("GAME SPRITE POSITION X:%f",positionX);
     }

@@ -21,9 +21,14 @@ public:
     int moveDirection;
     bool moveLeft;
     bool moveRight;
+    
+    Sprite* heroSprite;
+    Action* heroAction;
+    
     void update(float dt);
     
     void changeDirection();
+    void runningAnimation();
     
     void listenKeyboardEvent();
     void keyboardPressed(EventKeyboard::KeyCode kCode , Event* evt);
