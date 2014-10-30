@@ -13,6 +13,9 @@ bool HeroSprite::init(){
     moveDirection = 0;
     moveLeft = false;
     moveRight = false;
+    jumping = false;
+    oPositionY = 0;
+    tempPositionY = 0;
     HeroSprite::createHero();
     HeroSprite::listenKeyboardEvent();
     return true;
@@ -37,14 +40,34 @@ void HeroSprite::heroMove(float dt){
 //    CCLOG("HERO SPRITE POSITION X:%f",positionX);
 }
 
+void HeroSprite::heroJump(float dt){
+    //y=ax2+bx+c
+    //
+    float s = -100*(jumping*jumping)+200*jumping;
+    jumping += dt;
+    //y=-x2+2x+3
+    CCLOG("S:%f jump:%f",s,jumping);//cocos2d: S:1.650432 dt:0.016640
+//    S=Vo*t+1/2a*t^2
+    float positionY = tempPositionY+s;
+    if (positionY > oPositionY) {
+        setPositionY(positionY);
+    }else{
+        jumping = 0;
+    }
+    
+}
+
+
 void HeroSprite::update(float dt){
     if(moveDirection != 0){
         heroMove(dt);
     }
+    if (jumping > 0) {
+        heroJump(dt);
+    }
 }
 
-void HeroSprite::listenKeyboardEvent()
-{
+void HeroSprite::listenKeyboardEvent(){
     this->_eventDispatcher->removeAllEventListeners();
     auto keylistener = EventListenerKeyboard::create();
     keylistener->onKeyPressed = CC_CALLBACK_2(HeroSprite::keyboardPressed,this);
@@ -52,8 +75,7 @@ void HeroSprite::listenKeyboardEvent()
     this->_eventDispatcher->addEventListenerWithSceneGraphPriority(keylistener,this);
 }
 
-void HeroSprite::keyboardPressed(EventKeyboard::KeyCode kCode , Event* evt)
-{
+void HeroSprite::keyboardPressed(EventKeyboard::KeyCode kCode , Event* evt){
     //EventKeyboard::KeyCode::KEY_UP_ARROW
     //EventKeyboard::KeyCode::KEY_ENTER
     CCLOG("Pressed hero %d",(int) kCode);
@@ -71,12 +93,20 @@ void HeroSprite::keyboardPressed(EventKeyboard::KeyCode kCode , Event* evt)
             break;
         case cocos2d::EventKeyboard::KeyCode::KEY_DOWN_ARROW:
             break;
+        case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+//            if (jumping <= 0) {
+                jumping = 0.01;
+//            }
+            tempPositionY = getPositionY();
+            if (oPositionY == 0) {
+                oPositionY = getPositionY();
+            }
+            break;
         default:
             break;
     }
 }
-void HeroSprite::keyboardReleased(EventKeyboard::KeyCode kCode , Event* evt)
-{
+void HeroSprite::keyboardReleased(EventKeyboard::KeyCode kCode , Event* evt){
     CCLOG("Released hero %d",(int) kCode);
     switch (kCode)
     {
@@ -95,14 +125,15 @@ void HeroSprite::keyboardReleased(EventKeyboard::KeyCode kCode , Event* evt)
         case cocos2d::EventKeyboard::KeyCode::KEY_ESCAPE:
             HeroSprite::exitGame();
             break;
+        case cocos2d::EventKeyboard::KeyCode::KEY_SPACE:
+            break;
         default:
             break;
     }
 
 }
 
-void HeroSprite::changeDirection()
-{
+void HeroSprite::changeDirection(){
     if (moveLeft && moveRight) {
         moveDirection = 0;
         heroSprite->stopAction(heroAction);
@@ -121,8 +152,7 @@ void HeroSprite::changeDirection()
 
 }
 
-void HeroSprite::runningAnimation()
-{
+void HeroSprite::runningAnimation(){
     Vector<SpriteFrame*> allFrames;
     char name[100] = {};
     for (int i = 0; i<3; i++) {
@@ -134,8 +164,7 @@ void HeroSprite::runningAnimation()
     heroAction = heroSprite->runAction(RepeatForever::create(Animate::create(ani)));
 }
 
-void HeroSprite::exitGame()
-{
+void HeroSprite::exitGame(){
     MessageBox("You press the quit button.","quit game");
     Director::getInstance()->end();
 }

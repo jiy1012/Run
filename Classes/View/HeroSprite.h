@@ -18,9 +18,15 @@ public:
     void createHero();
     
     void heroMove(float dt);
+    void heroJump(float dt);
+    
     int moveDirection;
     bool moveLeft;
     bool moveRight;
+    
+    float jumping;
+    float oPositionY;
+    float tempPositionY;
     
     Sprite* heroSprite;
     Action* heroAction;
