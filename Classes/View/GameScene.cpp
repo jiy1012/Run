@@ -44,18 +44,20 @@ bool GameScene::init()
     /////////////////////////////
     // 3. add your codes below...
     
-    // add a label shows "Hello World"
     // create and initialize a label
     
-    auto label = LabelTTF::create("GAME", "Arial", 24);
-    
-    // position the label on the center of the screen
-    label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                            origin.y + visibleSize.height - label->getContentSize().height));
-    
-    // add the label as a child to this layer
-    this->addChild(label, 1);
-    
+    auto tip1 = LabelTTF::create("press RIGHT_ARROW to move", "Arial", 24);
+    tip1->setPosition(Vec2(origin.x + visibleSize.width/2,
+                            origin.y + visibleSize.height - tip1->getContentSize().height));
+    this->addChild(tip1, 1);
+    auto tip2 = LabelTTF::create("press LEFT_ARROW to move", "Arial", 24);
+    tip2->setPosition(Vec2(origin.x + visibleSize.width,
+                           origin.y + visibleSize.height - tip2->getContentSize().height));
+    this->addChild(tip2, 1);
+    auto tip3 = LabelTTF::create("press SPACE to jump", "Arial", 24);
+    tip3->setPosition(Vec2(origin.x + visibleSize.width*3/2,
+                           origin.y + visibleSize.height - tip3->getContentSize().height));
+    this->addChild(tip3, 1);
     // add "GameScene" splash screen"
     auto sprite = Sprite::create("image/scene/GameScene.png");
     
@@ -78,7 +80,7 @@ void GameScene::update(float dt)
     float distance = dt * GAME_SPRITE_SPEED;
     float positionX = getPositionX() - distance;
     
-    if (positionX >= -getContentSize().width && positionX > getPositionX()) {
+    if (positionX >= -getContentSize().width && positionX < getPositionX()) {
         setPositionX(positionX);
         CCLOG("GAME SPRITE POSITION X:%f",positionX);
     }

@@ -34,10 +34,9 @@ void HeroSprite::createHero(){
 void HeroSprite::heroMove(float dt){
     float distance = dt * (float) moveDirection * HERO_SPRITE_SPEED;
     setScaleX(moveDirection);
-//    float positionX = MAX(MIN(getPositionX()+distance, GET_WIN_WIDTH),0);
     float positionX = getPositionX()+distance;
     setPositionX(positionX);
-//    CCLOG("HERO SPRITE POSITION X:%f",positionX);
+    CCLOG("HERO SPRITE POSITION X:%f",positionX);
 }
 
 void HeroSprite::heroJump(float dt){
@@ -45,13 +44,13 @@ void HeroSprite::heroJump(float dt){
     //
     float s = -100*(jumping*jumping)+200*jumping;
     jumping += dt;
-    //y=-x2+2x+3
-    CCLOG("S:%f jump:%f",s,jumping);//cocos2d: S:1.650432 dt:0.016640
-//    S=Vo*t+1/2a*t^2
+//    CCLOG("S:%f jump:%f tempY:%f oY:%f",s,jumping,tempPositionY,oPositionY);//cocos2d: S:1.650432 dt:0.016640
+    
     float positionY = tempPositionY+s;
     if (positionY > oPositionY) {
         setPositionY(positionY);
     }else{
+        setPositionY(oPositionY);
         jumping = 0;
     }
     

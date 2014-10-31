@@ -62,14 +62,14 @@ bool MenuScene::init()
     // create and initialize a label
     
     auto label = LabelTTF::create("Run", "Arial", 24);
-    
+    auto tip = LabelTTF::create("press ENTER button", "Arial", 24);
     // position the label on the center of the screen
     label->setPosition(Vec2(origin.x + visibleSize.width/2,
                             origin.y + visibleSize.height - label->getContentSize().height));
-    
+    tip->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/4 + origin.y));
     // add the label as a child to this layer
     this->addChild(label, 1);
-    
+    this->addChild(tip);
     // add "MenuScene" splash screen"
     auto sprite = Sprite::create("image/scene/MenuScene.png");
     

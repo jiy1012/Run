@@ -35,7 +35,7 @@
 //project define
 #define HERO_SPRITE_INIT_DIRECTION 1;
 #define HERO_SPRITE_SPEED 200;
-#define GAME_SPRITE_SPEED 0;
+#define GAME_SPRITE_SPEED 50;
 
 
 #endif
